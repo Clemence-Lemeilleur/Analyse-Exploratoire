@@ -1,0 +1,155 @@
+---
+title: "AnalyseExplo"
+author: "Berry et Lemeilleur"
+date: "2022-10-05"
+output: pdf_document
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+## R markdown
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 1. Vectors
+
+1.1 Let's start simple
+
+Create the following vectors e1, e2, e3, e4
+
+```{r}
+e1 = c(2, 5, 0, 8)
+e2 = seq(1, 200, by=1)
+e3 = seq(-200, -210, by=-2)
+e4= c(2, 4, 8, 16, 32, 64, 128)
+```
+
+• Create the vector v of 50 elements with conditions
+
+Nous avons trouvé deux solutions pour cette question, voici la première
+(plus complexe) :
+
+```{r}
+v <- rep(1,50)
+for (i in 1:50)
+  if (i %% 2 == 0)
+    v[i] = -1 
+```
+
+et la seconde qui utilise les puissances de moins 1 :
+
+```{r}
+v <- c(-(-1)^(1:50))
+```
+
+• Create the vector e5 = (1, 2, ...210) by concatenating e2 and e3.
+
+```{r}
+e5 = c(e2,e3)
+```
+
+• Read seq's help vignette: ?seq C'est fait!
+
+• Create the vector e7 containing 70 equally spaced values between 0 and
+1.
+
+```{r}
+e6 = seq(0, 1, length.out = 70)
+```
+
+• Create the vector e7 containing 10 times the sequence e1. Tip: use
+rep.
+
+```{r}
+e7 = rep (e1,10)
+```
+
+• What is the result of the operation e2 moins e3 ? This is called
+recycling, and this is dangerous.
+
+```{r}
+e2-e3
+```
+
+1.2 Character vectors 
+• Create a vector vowels containing all vowels
+```{r}
+vowels = c('a', 'e', 'i', 'o', 'u', 'y')
+```
+•letters is a character vector containing all the letters in alphabetical order. 
+```{r}
+letters 
+```
+• What does letters %in% vowels do ? 
+```{r}
+letters %in% vowels 
+```
+Pour chaque element de letters si cet element est egalement dans vowels ça renvoie true, et ça renvoie false si cet element n'est pas dans vowels
+
+• Extract the number of each vowel. Tip: use which 
+```{r}
+which(letters%in% vowels)
+```
+
+• Extract the number of each nonvowel 
+```{r}
+x <- letters[! letters %in% vowels]
+for (i in x)
+  which(letters==letters[i])
+```
+
+Moyen plus simple de le faire (sans boucle) : 
+```{r}
+which(! letters%in% vowels)
+```
+
+• What are the letters right after a vowel ? 
+```{r}
+letters[which(letters%in% vowels) + 1]
+
+```
+• Create the string myname containing
+your name (in lower case) 
+```{r}
+myname = "clemence"
+```
+• Use strsplit to extract individual letters
+of your name. Observe that strsplit returns a list. Access its first
+element. 
+!!!! A Revoir !!!!
+```{r}
+namelet = strsplit(myname,"")[[1]]
+```
+• Give for each character of your name its number in the
+alphabet. 
+```{r}
+which(letters %in% namelet)
+```
+• Do the same with your right neighbor's name. • Who is on
+average lower in the alphabet ?
+```{r}
+myname2 = "oriane"
+namelet2 = strsplit(myname2,"")[[1]]
+indics1 = which(letters %in% namelet2)
+indics2 = which(letters %in% namelet)
+sum(indics1)/length(indics1)
+sum(indics2)/length(indics2)
+
+
+```
+
+
+
+
+
+\## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to
+prevent printing of the R code that generated the plot.
