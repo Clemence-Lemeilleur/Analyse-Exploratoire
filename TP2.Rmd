@@ -1,0 +1,48 @@
+---
+title: "TP2"
+output: pdf_document
+date: "2022-10-10"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Plots and Given Names
+
+We red the prenoms.csv doc and we plot these information:
+– The number of births by year: 
+
+```{r}
+library(tidyverse)
+date <- read.csv("prenoms.csv",header=TRUE)
+```
+– The number of births by year: 
+```{r}
+annee <- date %>% group_by(Année) %>%
+  summarise(nbr = sum(Nombre))
+ggplot(annee,aes(Année,nbr))+geom_point()
+```
+– The number of male/female births by year
+```{r}
+tri2 <- date %>% group_by(Année, Sexe) %>%
+  summarise(nbr=sum(Nombre))
+ggplot(tri2,aes(Année,nbr,color=Sexe,shape=Sexe))+geom_point()
+```
+– Is your name in the dataset ?
+```{r}
+date[date$Prénom == "Clémence",] 
+```
+
+– Represent the 10 most given names
+```{r}
+famous <- date %>% group_by(Prénom) %>%
+  summarise(nbr = sum(Nombre))
+head(famous[order(-famous$nbr),],10)
+```
+
+– Select for each year the top 5 given names by sex and represent their evolution along years.
+```{r}
+
+```
+
