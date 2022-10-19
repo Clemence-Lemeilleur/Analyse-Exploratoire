@@ -43,6 +43,33 @@ head(famous[order(-famous$nbr),],10)
 
 – Select for each year the top 5 given names by sex and represent their evolution along years.
 ```{r}
-
+tri4 <- date %>% group_by(Année,Sexe)  %>% 
+            mutate(nbr=rank(-Nombre))  %>% 
+            filter(nbr<=5 & Sexe=="F") %>%
+            ggplot(aes(x=Année,y=Nombre,fill=Prénom))+geom_histogram(stat="identity", position="dodge")
+tri4
+tri5 <- date %>% group_by(Année,Sexe)  %>% 
+            mutate(nbr=rank(-Nombre))  %>% 
+            filter(nbr<=5 & Sexe=="M") %>%
+            ggplot(aes(x=Année,y=Nombre,fill=Prénom))+geom_histogram(stat="identity", position="dodge")
+tri5
 ```
+
+– Plot the average number of letters by year
+```{r}
+ave <- date %>% group_by(Année) %>%
+  summarize(aveLetters=mean(str_length(Prénom))) 
+ave
+```
+– Plot the average number of vowels/consonants by year
+```{r}
+vow <- date %>% group_by(Année) %>%
+  summarize(aveVow=mean(length(which(c(grepl(vowels,Prénom)))))) 
+vow
+```
+
+– How the number of composed names (like Jean-Baptiste or Lou-Ann)
+
+
+– Define a “hype” criteria and find the hypest names
 
