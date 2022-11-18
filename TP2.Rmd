@@ -61,15 +61,72 @@ ave <- date %>% group_by(Année) %>%
   summarize(aveLetters=mean(str_length(Prénom))) 
 ave
 ```
-– Plot the average number of vowels/consonants by year
+– Plot the average number of vowels by year
 ```{r}
-vow <- date %>% group_by(Année) %>%
-  summarize(aveVow=mean(length(which(c(grepl(vowels,Prénom)))))) 
-vow
+print(length(grepl(vowels,strsplit(str_to_lower(toString(date$Prénom,to="ASCII//TRANSLIT")),""))))
+#ave <- date %>% group_by(Année) %>%
+#  summarize(aveLetters=mean(str_length(grepl(vowels,Prénom))))
+#ave
+#prenlen <- date %>% group_by(Année) %>%
+ # summarize(nbr = length(Prénom))
+#prenlen 
+  
+  
+  #pren <- strsplit(str_to_lower(toString(date$Prénom,to="ASCII//TRANSLIT")),"")
+#print(which(pren[[1]] %in% vowels))
+#vow <- date %>% group_by(Année) %>%
+ # summarize(aveVow=length((pren[[1]][pren[[1]] %in% vowels])))
+#print(length(grepl(vowels,pren[[1]])))
+#print(length((pren[[1]][pren[[1]] %in% vowels])))
+#vow
+```
+  - Plot the average number of consonants by year
+```{r}
+cons <- date %>% group_by(Année) %>%
+  summarize(aveVow=mean(length(which(c(grepl(setdiff(letters,vowels),Prénom)))))) 
+cons
 ```
 
 – How the number of composed names (like Jean-Baptiste or Lou-Ann)
 
 
 – Define a “hype” criteria and find the hypest names
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```{r}
+library(ggpubr)
+library(factoextra)
+cloud <- read.csv("datacloud.csv",header=TRUE)
+data <- (data.frame(cloud)[,-4])
+moy <- mean(cloud$cluster)
+res <- kmeans(data,2)
+fviz_cluster(res,data,ellipse.type = "norm")
+```
 
